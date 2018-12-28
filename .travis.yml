@@ -15,8 +15,9 @@ env:
 install:
   - pip install docker-compose
   - sudo apt-get install curl
+  - mkdir package
 
 script:
   - docker login --username "aoscloud" --password "y9POrQdd=Gk2j4nIKjlVMd8C3PSJPa49" aoscloud.azurecr.io && docker pull aoscloud.azurecr.io/aos/signer:0.1.1
-  - docker run -v $(pwd)/meta_folder:/data/meta/ -v $(pwd)/src/:/data/src/ aoscloud.azurecr.io/aos/signer:0.1.1
-  - curl --request POST -k --cacert meta_folder/rootCA.crt.pem --cert $SP_CERTIFICATE --key $PRIVATE_KEY --form "service=$SERVICE_UUID" --form "file=@src/service.tar.gz" $AOS_UPLOAD_SERVICE_URL
+  - docker run -v $(pwd)/meta_folder:/data/meta/ -v $(pwd)/src/:/data/src/ -v $(pwd)/package:/data/package aoscloud.azurecr.io/aos/signer:0.1.1
+  - curl --request POST -k --cacert meta_folder/rootCA.crt.pem --cert $SP_CERTIFICATE --key $PRIVATE_KEY --form "service=$SERVICE_UUID" --form "file=@package/service.tar.gz" $AOS_UPLOAD_SERVICE_URL
