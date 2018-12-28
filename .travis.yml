@@ -7,7 +7,7 @@ services:
 
 env:
   global:
-    - SERVICE_UUID=15843a72-3a6f-411d-a0f1-d553d9c30285
+    - SERVICE_UUID=415e1518-a2d0-42df-a99b-9b83a9df0e2a
     - AOS_UPLOAD_SERVICE_URL=https://staging-fusion.westeurope.cloudapp.azure.com:10000/api/v1/services/versions/
     - SP_CERTIFICATE=meta_folder/sp.crt
     - PRIVATE_KEY=meta_folder/private_key.pem
