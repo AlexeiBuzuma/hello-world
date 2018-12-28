@@ -7,7 +7,7 @@ services:
 
 env:
   global:
-    - SERVICE_UUID=2fed10e3-28e6-4978-98d8-9ea5fe348477
+    - SERVICE_UUID=15843a72-3a6f-411d-a0f1-d553d9c30285
     - AOS_UPLOAD_SERVICE_URL=https://staging-fusion.westeurope.cloudapp.azure.com:10000/api/v1/services/versions/
     - SP_CERTIFICATE=meta_folder/sp.crt
     - PRIVATE_KEY=meta_folder/private_key.pem
@@ -20,4 +20,4 @@ install:
 script:
   - docker login --username "aoscloud" --password "y9POrQdd=Gk2j4nIKjlVMd8C3PSJPa49" aoscloud.azurecr.io && docker pull aoscloud.azurecr.io/aos/signer:0.1.1
   - docker run -v $(pwd)/meta_folder:/data/meta/ -v $(pwd)/src/:/data/src/ -v $(pwd)/package:/data/package aoscloud.azurecr.io/aos/signer:0.1.1
-  - curl --request POST -k --cacert meta_folder/rootCA.crt.pem --cert $SP_CERTIFICATE --key $PRIVATE_KEY --form "service=$SERVICE_UUID" --form "file=@package/service.tar.gz" $AOS_UPLOAD_SERVICE_URL
+  - curl --request POST -k -v --cacert meta_folder/rootCA.crt.pem --cert $SP_CERTIFICATE --key $PRIVATE_KEY --form "service=$SERVICE_UUID" --form "file=@package/service.tar.gz" $AOS_UPLOAD_SERVICE_URL
